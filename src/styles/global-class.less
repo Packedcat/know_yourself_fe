@@ -1,0 +1,95 @@
+.amber-text {
+  color: @amber !important;
+}
+
+.teal-text {
+  color: @teal !important;
+}
+
+.indigo-text {
+  color: @indigo !important;
+}
+
+.purple-text {
+  color: @purple !important;
+}
+
+.red-text {
+  color: @red !important;
+}
+
+.amber {
+  color: @white;
+  background-color: @amber !important;
+}
+
+.indigo {
+  color: @white;
+  background-color: @indigo !important;
+}
+
+.teal {
+  color: @white;
+  background-color: @teal !important;
+}
+
+.purple {
+  color: @white;
+  background-color: @purple !important;
+}
+
+.red {
+  color: @white;
+  background-color: @red !important;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.clear-fix {
+  zoom: 1;
+  &:after {
+    content: '';
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0;
+    line-height: 0;
+  }
+}
+
+.input-field {
+  margin-top: 20px;
+  >label {
+    margin-top: 5px;
+    text-align: right;
+    display: inline-block;
+  }
+  >p {
+    margin: 0;
+    display: inline-block;
+    line-height: 2em;
+  }
+}
+
+.text-field {
+  &+.text-field {
+    margin-top: 10px;
+  }
+  display: flex;
+  line-height: 2em;
+  >label {
+    min-width: 6em;
+    text-align: right;
+    font-weight: bold;
+  }
+  >p {
+    margin: 0;
+    word-break: break-all;
+  }
+  >a {
+    margin-left: 3em;
+  }
+}

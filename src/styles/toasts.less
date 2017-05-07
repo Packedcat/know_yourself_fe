@@ -1,0 +1,23 @@
+.toasts-content {
+  z-index: 1;
+  position: fixed;
+  top: 2em;
+  left: 50%;
+  height: 3em;
+  line-height: 3em;
+  padding: 0 2em;
+  color: @white;
+  box-shadow: @card-shadow;
+  border-radius: 3px;
+  background-color: @amber;
+}
+
+.toasts-enter-active,
+.toasts-leave-active {
+  transition: top 0.3s;
+}
+
+.toasts-enter,
+.toasts-leave-active {
+  top: -3em;
+}

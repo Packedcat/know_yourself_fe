@@ -1,0 +1,93 @@
+a.button {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  width: 80px;
+  height: 33px;
+  line-height: 33px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  border-radius: 2px;
+  font-size: 14px;
+  /*克己-节制*/
+  /*will-change: box-shadow, transform;*/
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  background: transparent;
+  background-color: #eee;
+  color: #434343;
+}
+
+a.button + a.button {
+  margin-left: 20px;
+}
+
+a.button:hover {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+/*a.button.default {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  height: 31px;
+  line-height: 31px;
+}*/
+
+a.button.primary {
+  background-color: #ffa31a;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+a.button.success {
+  background-color: #4caf50;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+a.button.info {
+  background-color: #03a9f4;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+a.button.warning {
+  background-color: #ff5722;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+a.button.danger {
+  background-color: #f44336;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+a.button.disabled {
+  pointer-events: none;
+}
+
+.ripple {
+  position: relative;
+  overflow: hidden
+}
+
+.ripple:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #000 20%, transparent 21%);
+  background-repeat: no-repeat;
+  transform: scale(5, 5);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.ripple:active:after {
+  transform: scale(0, 0);
+  opacity: 0.1;
+  transition: 0s;
+}

@@ -1,0 +1,86 @@
+body {
+  color: @font-color;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  background-color: @grey-darken;
+  min-width: 1040px;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+input[type=text],
+input[type=password],
+input[type=number],
+textarea {
+  font-size: 16px;
+  margin: 0;
+  border-radius: 1px;
+  border: 1px solid @border-color-lighten;
+  background-color: @grey-lighten;
+  &:focus {
+    outline: none;
+    border-color: @amber;
+    background-color: @white;
+    box-shadow: @input-shadow;
+  }
+  &:hover {
+    border-color: @amber;
+  }
+}
+
+input[type=text],
+input[type=password],
+input[type=number] {
+  padding: 0 0.5em;
+  height: 32px;
+  line-height: 32px;
+}
+
+textarea {
+  padding: 0.5em;
+  resize: none;
+}
+
+table {
+  width: 100%;
+  margin: 20px 0;
+  text-align: center;
+  border-collapse: collapse;
+  border: 1px solid @border-color-darken;
+  background-color: @white;
+  thead {
+    background-color: @grey;
+    tr {
+      th {
+        height: 42px;
+        font-weight: normal;
+        border: 1px solid @border-color-lighten;
+      }
+    }
+  }
+  tbody {
+    tr {
+      td {
+        height: 42px;
+        border: 1px solid @border-color-lighten;
+      }
+    }
+  }
+}
