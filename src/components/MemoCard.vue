@@ -85,9 +85,9 @@ export default {
       })
     }
   },
-  mounted() {
-    this.data.tags.map((t) => {
-      this.checkTags.push(t.tag)
+  created() {
+    this.checkTags = this.data.tags.map((t) => {
+      return t.tag
     })
   },
   data() {
