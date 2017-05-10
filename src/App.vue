@@ -9,7 +9,6 @@
         <records :genres="genres" :tags="tags"></records>
       </el-col>
     </el-row>
-    <el-button type="text" @click="dialogTableVisible = true">打开嵌套表格的 Dialog</el-button>
     <el-dialog title="编辑标签" v-model="dialogTableVisible">
       <div>
         <div>

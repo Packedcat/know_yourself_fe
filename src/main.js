@@ -9,7 +9,7 @@ import PlaceHolder from './components/PlaceHolder'
 import Loading from './components/Loading'
 import 'animate.css'
 import './styles/icon.css'
-import 'element-ui/lib/theme-default/index.css'
+import '../theme/index.css'
 
 Vue.use(ElementUI)
 Vue.use(VueResource)
