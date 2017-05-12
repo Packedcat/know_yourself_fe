@@ -1,16 +1,18 @@
 <template>
   <div>
-    <navbar></navbar>
-    <el-row>
-      <el-col :span="6">
-        <sidebar @choose="handleChoose" :tags="tags"></sidebar>
-      </el-col>
-      <el-col :span="18">
-        <records :genres="genres" :tags="tags"></records>
-      </el-col>
-    </el-row>
-    <el-dialog title="编辑标签" v-model="dialogTableVisible">
-      <div>
+    <navbar :items="navItems"></navbar>
+    <div id="main-content">
+      <el-row>
+        <el-col :span="6">
+          <sidebar @choose="handleChoose" :tags="tags" id="side-bar"></sidebar>
+        </el-col>
+        <el-col :span="18" class="right">
+          <records :genres="genres" :tags="tags"></records>
+        </el-col>
+      </el-row>
+    </div>
+    <el-dialog size="tiny" title="编辑标签" v-model="dialogTableVisible">
+      <div id="tags-edit">
         <div>
           <el-tooltip class="item" effect="dark" content="取消" placement="bottom">
             <i class="material-icons tiny" v-show="editMode" @click="cancel">clear</i>
@@ -18,7 +20,7 @@
           <el-tooltip class="item" effect="dark" content="创建标签" placement="bottom">
             <i class="material-icons tiny" v-show="!editMode">add</i>
           </el-tooltip>
-          <input type="text" v-model="localTag" placeholder="创建新标签" @focus="editMode=true" />
+          <input type="text" v-model="localTag" placeholder="创建新标签" @focus="editMode=true" @blur="editMode=false" />
           <el-tooltip class="item" effect="dark" content="创建标签" placement="bottom">
             <i class="material-icons tiny" v-show="editMode" @click="createTag">check</i>
           </el-tooltip>
@@ -108,6 +110,22 @@ export default {
   },
   data() {
     return {
+      navItems: [{
+        name: '主页',
+        location: '/activity'
+      }, {
+        name: '数据中心',
+        location: '/data'
+      }, {
+        name: '可能存在',
+        location: '/account'
+      }, {
+        name: '并不存在',
+        location: '/none'
+      }, {
+        name: '设置',
+        location: '/setting'
+      }],
       tags: [],
       show: true,
       dialogTableVisible: false,
@@ -127,8 +145,13 @@ body {
   padding: 0;
   font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  background-color: @grey-lighten;
 }
 
+#main-content {
+  // width: 1000px;
+  margin: 59px 0 7px;
+}
 .material-icons.tiny {
   font-size: 1.5rem;
   margin: 0 1em;
@@ -166,5 +189,43 @@ body {
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
+}
+
+.el-dialog.el-dialog--tiny {
+  width: 300px;
+}
+
+input {
+  font-size: 1em;
+  line-height: 2em;
+  padding: 0 0.5em;
+  border: none;
+  outline: none;
+  &:focus {
+    border-bottom: 1px solid @amber;
+    margin-bottom: -1px;
+  }
+}
+
+textarea {
+  border: none!important;
+  height: 5.5em;
+  resize: none!important;
+}
+
+#tags-edit {
+  width: 260px;
+  i {
+    margin: 0 10px;
+    margin-top: 3px;
+  }
+}
+
+#side-bar {
+  max-width: 260px;
+}
+
+.el-row {
+  margin-bottom: 0!important;
 }
 </style>

@@ -86,12 +86,18 @@ export default {
 </script>
 <style>
 .record-list {
-  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 800px;
 }
 
 .record-list li {
   display: inline-block;
-  width: 30%;
+  width: 320px;
+  margin-top: 20px;
+  margin-right: 20px;
 }
 
 .list-enter-active {

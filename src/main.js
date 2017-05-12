@@ -4,7 +4,7 @@ import VueResource from 'vue-resource'
 
 import App from './App'
 import router from './router'
-
+import timeFilter from './libs/timeFilter'
 import PlaceHolder from './components/PlaceHolder'
 import Loading from './components/Loading'
 import 'animate.css'
@@ -15,6 +15,7 @@ Vue.use(ElementUI)
 Vue.use(VueResource)
 Vue.component('PlaceHolder', PlaceHolder)
 Vue.component('Loading', Loading)
+Vue.filter('timeFilter', timeFilter)
 
 Vue.config.productionTip = false
 

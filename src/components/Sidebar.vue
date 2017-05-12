@@ -1,6 +1,6 @@
 <template>
   <el-menu @select="handleSelet">
-    <el-menu-item index="home"><i class="material-icons tiny">mode_edit</i>记事</el-menu-item>
+    <el-menu-item index="record"><i class="material-icons tiny">mode_edit</i>记事</el-menu-item>
     <el-menu-item-group title="标签">
       <el-menu-item v-for="tag in tags" :index="tag.id" :key="tag.id"><i class="material-icons tiny">label</i>{{tag.tag}}</el-menu-item>
       <el-menu-item index="add"><i class="material-icons tiny">add</i>创建新标签</el-menu-item>
@@ -29,3 +29,4 @@ export default {
   }
 }
 </script>
+
