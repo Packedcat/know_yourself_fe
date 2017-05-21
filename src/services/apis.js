@@ -5,6 +5,17 @@ export default {
     const url = `/api/${genres.toLowerCase()}`
     return Vue.http.get(url)
   },
+  updateRecord(id, title = null, content = null) {
+    let data = { id: id }
+    if (title) {
+      data.title = title
+    }
+    if (content) {
+      data.content = content
+    }
+    const url = '/api/record/update'
+    return Vue.http.post(url, data)
+  },
   archiveRecord(id) {
     let data = { id: id }
     const url = '/api/record/archive'
@@ -49,7 +60,7 @@ export default {
     return Vue.http.post(url, data)
   },
   getUser() {
-    const url = '/api/users'
+    const url = '/api/user'
     return Vue.http.get(url)
   }
 }

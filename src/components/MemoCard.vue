@@ -1,9 +1,9 @@
 <template>
   <div class="card-wrapper">
-    <input class="card-input" type="text" v-model="localTitle">
-    <el-input v-if="data.genres === 'Text'" type="textarea" :rows="2" placeholder="请输入内容" v-model="localContent">
+    <input class="card-input" type="text" v-model="localTitle" @blur="modifyContent">
+    <el-input v-if="data.genres === 'Text'" type="textarea" :rows="2" placeholder="请输入内容" v-model="localContent" @blur="modifyContent">
     </el-input>
-    <img :src="data.content" v-if="data.genres === 'Picture'" class="picture image">
+    <img :src="data.content" v-if="data.genres === 'Picture'" class="picture image" @click="openImg">
     <div v-if="data.genres === 'Sharing'" class="sharing">
       <i class="material-icons">share</i>
       <a :href="data.content" target="_blank">打开链接</a>
@@ -46,6 +46,20 @@ export default {
   name: 'actioncard',
   props: ['data', 'tags'],
   methods: {
+    openImg() {
+      this.$emit('open', this.data.content)
+    },
+    modifyContent() {
+      if (this.localTitle === this.data.title && this.localContent === this.data.content) {
+        return
+      }
+      API.updateRecord(this.data.id, this.localTitle, this.localContent).then(() => {
+        this.$message({
+          type: 'success',
+          message: '修改成功!'
+        })
+      })
+    },
     play() {
       var audio = document.querySelector('#bgMusic')
       if (!this.isPlaying) {
@@ -169,15 +183,14 @@ export default {
 .card-wrapper {
   position: relative;
   transition: box-shadow 0.3s;
-  cursor: pointer;
   display: flex;
   flex-wrap: wrap;
   padding: 15px;
   background-color: @white;
   border-radius: 3px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
   &:hover {
-    box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.14);
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);
     .remove {
       visibility: visible;
     }
@@ -186,6 +199,7 @@ export default {
     // max-width: 300px;
     // max-width: 100%;
     // max-height: 100%;
+    cursor: zoom-in;
     height: 200px;
     overflow: hidden;
     display: block;
@@ -213,6 +227,7 @@ export default {
       margin-left: 10px;
     }
     .time {
+      cursor: text;
       float: right;
       // line-height: 2em;
       margin-top: 10px;
@@ -222,6 +237,7 @@ export default {
     width: 100%;
   }
   .remove {
+    cursor: pointer;
     visibility: hidden;
     position: absolute;
     top: -10px;
@@ -229,6 +245,9 @@ export default {
     background-color: #fff;
     border-radius: 50%;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    &:hover {
+      color: @amber;
+    }
   }
 }
 

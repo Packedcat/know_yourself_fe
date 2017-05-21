@@ -12,7 +12,8 @@
         <span class="nav-cursor" :style="{'left': left}"></span>
       </ul>
       <div class="profile" @click="dropFlag = !dropFlag">
-        <img src="../assets/logo.png" title="个人中心">
+        <span class="userName">{{user.name}}</span>
+        <img :src="user.image" title="个人中心">
         <ul class="profile-drop" v-show="dropFlag">
           <li>个人中心</li>
           <li @click="logout">退出</li>
@@ -22,7 +23,7 @@
   </nav>
 </template>
 <script>
-// import API from './services/apis'
+import API from '../services/apis'
 
 export default {
   name: 'navbar',
@@ -34,22 +35,13 @@ export default {
   },
   data() {
     return {
+      user: null,
       dropFlag: false,
       tabWidth: 100,
       left: '20px'
     }
   },
   methods: {
-    getCookie(name) {
-      // var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-      // if(arr=document.cookie.match(reg))
-      // return unescape(arr[2]);
-      // else
-      // return null;
-      let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
-      let v = document.cookie.match(reg)
-      return v ? v[2] : null
-    },
     reload() {
       window.location.replace('/my/home/')
     },
@@ -64,10 +56,9 @@ export default {
     }
   },
   created() {
-    // API.getUser.then((response) => {
-    // response.body.users.forEach
-    // })
-    console.info(this.getCookie('awesession'))
+    API.getUser().then((response) => {
+      this.user = response.body.user
+    })
     const pathName = this.$route.path
     const i = this.itemIndex.findIndex(ii => pathName.indexOf(ii) !== -1)
     this.left = `${(i * this.tabWidth) + 20}px`
@@ -159,6 +150,12 @@ nav {
         vertical-align: bottom;
         height: 2em;
         line-height: 2em;
+      }
+      .userName {
+        display: inline-block;
+        margin-right: 1em;
+        height: 59px;
+        line-height: 59px;
       }
       >img {
         cursor: pointer;

@@ -5,7 +5,7 @@
       <sidebar @choose="handleChoose" :tags="tags" id="side-bar"></sidebar>
       <records :genres="genres" :tags="tags"></records>
     </div>
-    <el-dialog size="tiny" title="编辑标签" v-model="dialogTableVisible">
+    <el-dialog size="tiny" top="30%" title="编辑标签" v-model="dialogTableVisible">
       <div id="tags-edit">
         <div>
           <el-tooltip class="item" effect="dark" content="取消" placement="bottom">

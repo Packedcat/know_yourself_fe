@@ -2,7 +2,7 @@
   <div class="main-content">
     <main id="particles-js">
       <div class="login-form">
-        <form @keyup.enter="login">
+        <form @keyup.enter="login" v-if="mode==='login'">
           <!-- <ul>
             <li :class="{'current': current === 1}" @click="choose(1)">广告主</li>
             <li :class="{'current': current === 2}" @click="choose(2)">自媒体</li>
@@ -15,7 +15,16 @@
           </label>
           <p class="shake" v-show="errorText">{{errorText}}</p>
           <ex-button :class="{'disabled': loginFlag}" type="primary" @click="login">{{loginText}}</ex-button>
-          <a class="register ripple" href="javascript:;">注册</a>
+          <a class="register ripple" href="javascript:;" @click="mode='register';loginText='注册'">注册</a>
+        </form>
+        <form v-else="mode==='register'" style="height: 390px">
+          <input type="text" placeholder="名字" v-model.trim="userName" />
+          <input type="text" placeholder="电子邮件" v-model.trim="email" />
+          <input type="password" placeholder="密码" v-model.trim="password" />
+          <input type="password" placeholder="重复密码" v-model.trim="pswAgain" style="margin-bottom:50px" />
+          <p class="shake" v-show="errorText">{{errorText}}</p>
+          <ex-button :class="{'disabled': loginFlag}" type="primary" @click="register">{{loginText}}</ex-button>
+          <a class="register ripple" href="javascript:;" @click="mode='login';loginText='登录'">登录</a>
         </form>
       </div>
     </main>
@@ -26,6 +35,11 @@
 import CryptoJS from 'crypto-js'
 // import particlesJS from './libs/particles.js'
 
+function validateEmail(email) {
+  var re = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
+  return re.test(email.toLowerCase())
+}
+
 export default {
   name: 'login',
   watch: {
@@ -34,9 +48,58 @@ export default {
     },
     psw() {
       this.errorText = ''
+    },
+    userName() {
+      this.errorText = ''
+    },
+    email() {
+      this.errorText = ''
+    },
+    password() {
+      this.errorText = ''
+    },
+    pswAgain() {
+      this.errorText = ''
     }
   },
   methods: {
+    register() {
+      if (this.password !== this.pswAgain) {
+        this.errorText = '两次输入的口令不一致'
+      }
+      if (this.password.length < 6) {
+        this.errorText = '口令长度至少为6个字符'
+      }
+      if (!validateEmail(this.email.trim().toLowerCase())) {
+        this.errorText = '请输入正确的Email地址'
+      }
+      if (!this.userName.trim()) {
+        this.errorText = '请输入名字'
+      }
+      let email = this.email.trim().toLowerCase()
+      let data = {
+        name: this.userName.trim(),
+        email: email,
+        passwd: CryptoJS.SHA1(email + ':' + this.password).toString()
+      }
+      this.$http.post('/api/users', data).then((response) => {
+        if (!response.body.error) {
+          this.loginFlag = true
+          this.loginText = '注册成功正在跳转...'
+          setTimeout(() => {
+            window.location.replace('http://127.0.0.1:8080/app.html')
+          }, 500)
+        } else {
+          this.errorText = response.body.message
+        }
+      }).catch((e) => {
+        if (e.status >= 400) {
+          this.errorText = '(╯°□°）╯︵ ┻━┻'
+        } else if (e.status >= 500) {
+          this.errorText = '╮(￣▽￣"")╭'
+        }
+      })
+    },
     login() {
       if (this.name && this.psw) {
         var email = this.name.trim().toLowerCase()
@@ -68,10 +131,15 @@ export default {
     return {
       name: '',
       psw: '',
+      userName: '',
+      email: '',
+      password: '',
+      pswAgain: '',
       // current: 1,
       loginFlag: false,
       loginText: '登录',
-      errorText: ''
+      errorText: '',
+      mode: 'login'
     }
   }
 }

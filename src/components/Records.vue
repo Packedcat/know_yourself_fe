@@ -2,11 +2,14 @@
   <div class="record-content">
     <transition-group class="record-list" name="list" tag="ul" @enter="enter" v-if="loading" appear>
       <li v-for="(r, index) in records" :key="r.id" :data-index="index + 1">
-        <memo-card :data="r" :tags="tags" @change="change"></memo-card>
+        <memo-card :data="r" :tags="tags" @change="change" @open="openImg"></memo-card>
       </li>
     </transition-group>
     <loading height="650" v-else></loading>
     <place-holder v-if="records.length === 0 && loading"></place-holder>
+    <el-dialog v-model="imgDialog" top="5%">
+      <img :src="imgUrl" style="width: 100%">
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -35,6 +38,10 @@ export default {
       setTimeout(() => {
         done()
       }, delay)
+    },
+    openImg(url) {
+      this.imgUrl = url
+      this.imgDialog = true
     },
     change() {
       this.init()
@@ -81,6 +88,8 @@ export default {
   },
   data() {
     return {
+      imgDialog: false,
+      imgUrl: '',
       loading: false,
       records: []
     }
