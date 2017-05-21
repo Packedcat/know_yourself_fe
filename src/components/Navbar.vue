@@ -22,6 +22,8 @@
   </nav>
 </template>
 <script>
+// import API from './services/apis'
+
 export default {
   name: 'navbar',
   props: {
@@ -38,6 +40,16 @@ export default {
     }
   },
   methods: {
+    getCookie(name) {
+      // var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+      // if(arr=document.cookie.match(reg))
+      // return unescape(arr[2]);
+      // else
+      // return null;
+      let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
+      let v = document.cookie.match(reg)
+      return v ? v[2] : null
+    },
     reload() {
       window.location.replace('/my/home/')
     },
@@ -52,6 +64,10 @@ export default {
     }
   },
   created() {
+    // API.getUser.then((response) => {
+    // response.body.users.forEach
+    // })
+    console.info(this.getCookie('awesession'))
     const pathName = this.$route.path
     const i = this.itemIndex.findIndex(ii => pathName.indexOf(ii) !== -1)
     this.left = `${(i * this.tabWidth) + 20}px`

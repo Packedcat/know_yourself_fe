@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="record-content">
     <transition-group class="record-list" name="list" tag="ul" @enter="enter" v-if="loading" appear>
       <li v-for="(r, index) in records" :key="r.id" :data-index="index + 1">
-        <memo-card :data="r" :tags="tags"></memo-card>
+        <memo-card :data="r" :tags="tags" @change="change"></memo-card>
       </li>
     </transition-group>
-    <loading height="450" v-else></loading>
-    <place-holder v-if="records.length === 0 && loading" prompt="活动为空"></place-holder>
+    <loading height="650" v-else></loading>
+    <place-holder v-if="records.length === 0 && loading"></place-holder>
   </div>
 </template>
 <script>
@@ -35,6 +35,9 @@ export default {
       setTimeout(() => {
         done()
       }, delay)
+    },
+    change() {
+      this.init()
     },
     init() {
       return new Promise((resolve) => {
@@ -85,12 +88,20 @@ export default {
 }
 </script>
 <style>
+.record-content {
+  flex-grow: 1;
+  /*padding: 0 20px;*/
+}
+
 .record-list {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
+  /*justify-content: flex-start;*/
+  align-content: flex-start;
+  /*align-items: flex-start;*/
   flex-direction: column;
-  height: 800px;
+  max-height: 800px;
 }
 
 .record-list li {
@@ -108,5 +119,10 @@ export default {
   position: absolute;
   opacity: 0;
   transform: translateY(20px);
+}
+
+.place-holder {
+  width: 100%;
+  height: 400px;
 }
 </style>

@@ -14,11 +14,11 @@
     </div>
     <audio v-if="data.genres === 'Recording'" :src="data.content" controls="controls"></audio>
     <div class="footer">
-      <el-tooltip class="item" effect="dark" content="归档" placement="bottom">
-        <el-button type="text" size="mini" @click="toArchive"><i class="material-icons">archive</i></el-button>
+      <el-tooltip class="item" effect="dark" :content="data.archive?'取消归档':'归档'" placement="bottom">
+        <el-button type="text" size="mini" @click="toArchive"><i class="material-icons">{{data.archive?'unarchive':'archive'}}</i></el-button>
       </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="删除" placement="bottom">
-        <el-button type="text" size="mini" @click="toTrash"><i class="material-icons">delete</i></el-button>
+      <el-tooltip class="item" effect="dark" :content="data.trash?'恢复':'删除'" placement="bottom">
+        <el-button type="text" size="mini" @click="toTrash"><i class="material-icons">{{data.trash?'delete_forever':'delete'}}</i></el-button>
       </el-tooltip>
       <el-popover ref="popover5" placement="top" width="160" v-model="visible2">
         <el-checkbox-group v-model="checkTags" class="check-tags">
@@ -34,6 +34,9 @@
       </el-tooltip>
       <time class="time">{{data.created_at * 1000 | timeFilter('YYYY-MM-DD')}}</time>
     </div>
+    <el-tooltip class="remove" effect="dark" content="移除" placement="bottom">
+      <i class="material-icons tiny" v-show="data.trash" @click="remove">clear</i>
+    </el-tooltip>
   </div>
 </template>
 <script>
@@ -58,7 +61,8 @@ export default {
       }
     },
     toArchive() {
-      this.$confirm('归档该文件, 是否继续?', '提示', {
+      const hintText = this.data.archive ? '取消归档' : '归档'
+      this.$confirm(`${hintText}归档该文件, 是否继续?`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -66,18 +70,20 @@ export default {
         API.archiveRecord(this.data.id).then(() => {
           this.$message({
             type: 'success',
-            message: '归档成功!'
+            message: '操作成功!'
           })
+          this.$emit('change')
         })
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消归档'
+          message: '已取消操作'
         })
       })
     },
     toTrash() {
-      this.$confirm('删除该文件, 是否继续?', '提示', {
+      const hintText = this.data.trash ? '恢复' : '删除'
+      this.$confirm(`${hintText}该文件, 是否继续?`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -85,13 +91,14 @@ export default {
         API.trashRecord(this.data.id).then(() => {
           this.$message({
             type: 'success',
-            message: '删除成功!'
+            message: '操作成功!'
           })
+          this.$emit('change')
         })
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消删除'
+          message: '已取消操作'
         })
       })
     },
@@ -111,8 +118,25 @@ export default {
         this.visible2 = false
       })
     },
-    updateRecord() {
-    	
+    remove() {
+      this.$confirm('移除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        API.removeRecord(this.data.id).then(() => {
+          this.$message({
+            type: 'success',
+            message: '操作成功!'
+          })
+          this.$emit('change')
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消操作'
+        })
+      })
     }
   },
   created() {
@@ -143,6 +167,7 @@ export default {
 }
 
 .card-wrapper {
+  position: relative;
   transition: box-shadow 0.3s;
   cursor: pointer;
   display: flex;
@@ -153,6 +178,9 @@ export default {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
   &:hover {
     box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.14);
+    .remove {
+      visibility: visible;
+    }
   }
   .picture {
     // max-width: 300px;
@@ -192,6 +220,15 @@ export default {
   }
   .header {
     width: 100%;
+  }
+  .remove {
+    visibility: hidden;
+    position: absolute;
+    top: -10px;
+    right: -30px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   }
 }
 

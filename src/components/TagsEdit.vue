@@ -4,7 +4,7 @@
       <i class="material-icons tiny" v-if="hoverFlag" @click="deleteTag">delete</i>
       <i class="material-icons tiny" v-else>label</i>
     </el-tooltip>
-    <input type="text" v-model="localTag" @focus="editMode=true" @blur="editMode=false" />
+    <input type="text" v-model="localTag" @focus="editMode=true" />
     <el-tooltip class="item" effect="dark" content="重命名标签" placement="bottom">
       <i class="material-icons tiny" v-if="editMode" @click="modifyTag">check</i>
       <i class="material-icons tiny" v-else @click="editMode=true">edit</i>

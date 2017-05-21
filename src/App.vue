@@ -2,14 +2,8 @@
   <div>
     <navbar :items="navItems"></navbar>
     <div id="main-content">
-      <el-row>
-        <el-col :span="6">
-          <sidebar @choose="handleChoose" :tags="tags" id="side-bar"></sidebar>
-        </el-col>
-        <el-col :span="18" class="right">
-          <records :genres="genres" :tags="tags"></records>
-        </el-col>
-      </el-row>
+      <sidebar @choose="handleChoose" :tags="tags" id="side-bar"></sidebar>
+      <records :genres="genres" :tags="tags"></records>
     </div>
     <el-dialog size="tiny" title="编辑标签" v-model="dialogTableVisible">
       <div id="tags-edit">
@@ -20,9 +14,9 @@
           <el-tooltip class="item" effect="dark" content="创建标签" placement="bottom">
             <i class="material-icons tiny" v-show="!editMode">add</i>
           </el-tooltip>
-          <input type="text" v-model="localTag" placeholder="创建新标签" @focus="editMode=true" @blur="editMode=false" />
+          <input type="text" v-model="localTag" placeholder="创建新标签" @focus="editMode=true" />
           <el-tooltip class="item" effect="dark" content="创建标签" placement="bottom">
-            <i class="material-icons tiny" v-show="editMode" @click="createTag">check</i>
+            <i class="material-icons tiny" @click="createTag" v-show="editMode">check</i>
           </el-tooltip>
         </div>
         <tags-edit v-for="tag in tags" :data="tag" :key="tag.id" @delete="handleDelete" @modify="handleUpdate"></tags-edit>
@@ -110,22 +104,7 @@ export default {
   },
   data() {
     return {
-      navItems: [{
-        name: '主页',
-        location: '/activity'
-      }, {
-        name: '数据中心',
-        location: '/data'
-      }, {
-        name: '可能存在',
-        location: '/account'
-      }, {
-        name: '并不存在',
-        location: '/none'
-      }, {
-        name: '设置',
-        location: '/setting'
-      }],
+      navItems: [],
       tags: [],
       show: true,
       dialogTableVisible: false,
@@ -149,9 +128,11 @@ body {
 }
 
 #main-content {
-  // width: 1000px;
-  margin: 59px 0 7px;
+  width: 100%;
+  margin-top: 59px;
+  display: flex;
 }
+
 .material-icons.tiny {
   font-size: 1.5rem;
   margin: 0 1em;
@@ -218,11 +199,14 @@ textarea {
   i {
     margin: 0 10px;
     margin-top: 3px;
+    cursor: pointer;
   }
 }
 
 #side-bar {
-  max-width: 260px;
+  width: 240px;
+  min-width: 240px;
+  margin-right: 50px;
 }
 
 .el-row {

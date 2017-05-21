@@ -42,5 +42,14 @@ export default {
   getRecordByTag(tagId) {
     const url = `/api/record/bytag?tag_id=${tagId}`
     return Vue.http.get(url)
+  },
+  removeRecord(recordId) {
+    let data = { id: recordId }
+    const url = '/api/record/remove'
+    return Vue.http.post(url, data)
+  },
+  getUser() {
+    const url = '/api/users'
+    return Vue.http.get(url)
   }
 }
