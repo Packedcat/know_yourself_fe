@@ -241,10 +241,12 @@ export default {
     visibility: hidden;
     position: absolute;
     top: -10px;
-    right: -30px;
+    right: -25px;
     background-color: #fff;
     border-radius: 50%;
+    border: 3px solid #fff;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
     &:hover {
       color: @amber;
     }
