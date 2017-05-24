@@ -64,17 +64,21 @@ export default {
   },
   methods: {
     register() {
-      if (this.password !== this.pswAgain) {
-        this.errorText = '两次输入的口令不一致'
-      }
-      if (this.password.length < 6) {
-        this.errorText = '口令长度至少为6个字符'
+      if (!this.userName.trim()) {
+        this.errorText = '请输入名字'
+        return
       }
       if (!validateEmail(this.email.trim().toLowerCase())) {
         this.errorText = '请输入正确的Email地址'
+        return
       }
-      if (!this.userName.trim()) {
-        this.errorText = '请输入名字'
+      if (this.password.length < 6) {
+        this.errorText = '口令长度至少为6个字符'
+        return
+      }
+      if (this.password !== this.pswAgain) {
+        this.errorText = '两次输入的口令不一致'
+        return
       }
       let email = this.email.trim().toLowerCase()
       let data = {
@@ -90,7 +94,7 @@ export default {
             window.location.replace('http://127.0.0.1:8080/app.html')
           }, 500)
         } else {
-          this.errorText = response.body.message
+          this.errorText = response.body.error
         }
       }).catch((e) => {
         if (e.status >= 400) {
