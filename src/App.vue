@@ -206,7 +206,7 @@ textarea {
 #side-bar {
   width: 240px;
   min-width: 240px;
-  margin-right: 50px;
+  margin-right: 20px;
 }
 
 .el-row {

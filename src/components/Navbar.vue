@@ -15,7 +15,7 @@
         <span class="userName">{{user?user.name:''}}</span>
         <img :src="user?user.image:''" title="个人中心">
         <ul class="profile-drop" v-show="dropFlag">
-          <li>个人中心</li>
+          <!-- <li>个人中心</li> -->
           <li @click="logout">退出</li>
         </ul>
       </div>
