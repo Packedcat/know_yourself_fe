@@ -62,5 +62,9 @@ export default {
   getUser() {
     const url = '/api/user'
     return Vue.http.get(url)
+  },
+  logout() {
+    const url = '/api/signout'
+    return Vue.http.get(url)
   }
 }

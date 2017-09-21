@@ -50,7 +50,9 @@ export default {
       this.left = `${(this.curIndex * this.tabWidth) + 20}px`
     },
     logout() {
-      window.location.replace(`http://${window.location.host}/login`)
+      API.logout().then((response) => {
+        window.location.replace(`http://${window.location.host}/login`)
+      })
     }
   },
   created() {

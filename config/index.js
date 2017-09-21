@@ -32,12 +32,7 @@ module.exports = {
         '/api': {
             target: 'http://127.0.0.1:9000',
             changeOrigin: true
-        },
-        // '/static': {
-        //     target: 'http://127.0.0.1:9000',
-        //     changeOrigin: true,
-        //     filter: ['/static/**', '!**/*/icons.a0941c8.woff2']
-        // }
+        }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

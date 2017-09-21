@@ -49,7 +49,11 @@ export default {
     init() {
       return new Promise((resolve) => {
         API.getRecord(this.genres).then((response) => {
-          this.records = response.body.record
+          if (response.body.record) {
+            this.records = response.body.record
+          } else {
+            this.records = []
+          }
           setTimeout(() => {
             resolve()
           }, 1000)
@@ -98,6 +102,7 @@ export default {
 </script>
 <style>
 .record-content {
+  margin-left: 260px;
   flex-grow: 1;
   /*padding: 0 20px;*/
 }

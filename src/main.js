@@ -19,6 +19,19 @@ Vue.filter('timeFilter', timeFilter)
 
 Vue.config.productionTip = false
 
+Vue.http.interceptors.push((request, next) => {
+  next((response) => {
+    if (response.status === 200 && response.body.data === 'permission') {
+      Vue.prototype.$alert('未登录或登录已超时,请重新登录.点击确定返回登录页面', '提示', {
+        confirmButtonText: '确定',
+        callback: action => {
+          window.location.replace(`http://${window.location.host}/login`)
+        }
+      })
+    }
+  })
+})
+
 /* eslint-disable no-new */
 new Vue({
   router,
