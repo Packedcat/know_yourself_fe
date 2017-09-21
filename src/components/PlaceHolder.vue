@@ -9,7 +9,7 @@ export default {
   props: {
     prompt: {
       type: String,
-      default: '欧派不见了！'
+      default: '内容为空！'
     }
   }
 }

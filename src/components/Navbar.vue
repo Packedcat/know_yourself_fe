@@ -3,7 +3,6 @@
     <div class="nav-wrapper clear-fix">
       <a class="brand-logo" @click="reload">
         <h3>Know Yourself</h3>
-        <!-- <img src="../assets/logo.png"> -->
       </a>
       <ul class="clear-fix">
         <li @mouseover="tabHover(index)" @mouseleave="tabReset" v-for="(tab, index) of items">
@@ -13,9 +12,8 @@
       </ul>
       <div class="profile" @click="dropFlag = !dropFlag">
         <span class="userName">{{user?user.name:''}}</span>
-        <img :src="user?user.image:''" title="个人中心">
+        <img src="../assets/user.png" title="profile">
         <ul class="profile-drop" v-show="dropFlag">
-          <!-- <li>个人中心</li> -->
           <li @click="logout">退出</li>
         </ul>
       </div>
@@ -52,7 +50,7 @@ export default {
       this.left = `${(this.curIndex * this.tabWidth) + 20}px`
     },
     logout() {
-      window.location.replace(`http://${window.location.host}`)
+      window.location.replace(`http://${window.location.host}/login`)
     }
   },
   created() {

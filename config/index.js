@@ -4,7 +4,8 @@ var path = require('path')
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../dist/index.html'),
+    app: path.resolve(__dirname, '../dist/index.html'),
+    login: path.resolve(__dirname, '../dist/login.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -32,11 +33,11 @@ module.exports = {
             target: 'http://127.0.0.1:9000',
             changeOrigin: true
         },
-        '/static': {
-            target: 'http://127.0.0.1:9000',
-            changeOrigin: true,
-            filter: ['/static/**', '!**/*/icons.a0941c8.woff2']
-        }
+        // '/static': {
+        //     target: 'http://127.0.0.1:9000',
+        //     changeOrigin: true,
+        //     filter: ['/static/**', '!**/*/icons.a0941c8.woff2']
+        // }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

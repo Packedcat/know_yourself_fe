@@ -17,11 +17,9 @@ export default {
   props: ['data'],
   methods: {
     deleteTag() {
-      console.info('delete', this.data.id)
       this.$emit('delete', this.data.id)
     },
     modifyTag() {
-      console.info('modify', this.data.id)
       this.$emit('modify', this.data.id, this.localTag)
       this.editMode = false
     }
