@@ -53,6 +53,16 @@ input[type=number] {
   line-height: 32px;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #f9f9f9 inset;
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+
 textarea {
   padding: 0.5em;
   resize: none;

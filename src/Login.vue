@@ -2,17 +2,9 @@
   <div class="main-content">
     <main id="particles-js">
       <div class="login-form">
-        <form @keyup.enter="login" v-if="mode==='login'">
-          <!-- <ul>
-            <li :class="{'current': current === 1}" @click="choose(1)">广告主</li>
-            <li :class="{'current': current === 2}" @click="choose(2)">自媒体</li>
-          </ul> -->
+        <form @keyup.enter="login" v-if="mode==='login'" autocomplete="off">
           <input type="text" placeholder="帐号" name="name" v-model.trim="name" />
-          <input type="password" placeholder="密码" name="psw" v-model.trim="psw" />
-          <label>
-            <input type="checkbox" />记住我
-            <a href="javascript:;">忘记密码</a>
-          </label>
+          <input type="password" placeholder="密码" name="psw" v-model.trim="psw" style="margin-bottom:50px" />
           <p class="shake" v-show="errorText">{{errorText}}</p>
           <ex-button :class="{'disabled': loginFlag}" type="primary" @click="login">{{loginText}}</ex-button>
           <a class="register ripple" href="javascript:;" @click="mode='register';loginText='注册'">注册</a>
@@ -60,6 +52,9 @@ export default {
     },
     pswAgain() {
       this.errorText = ''
+    },
+    mode() {
+      this.errorText = ''
     }
   },
   methods: {
@@ -91,7 +86,7 @@ export default {
           this.loginFlag = true
           this.loginText = '注册成功正在跳转...'
           setTimeout(() => {
-            window.location.replace('http://127.0.0.1:8080/app.html')
+            window.location.replace('/')
           }, 500)
         } else {
           this.errorText = response.body.error
@@ -116,7 +111,7 @@ export default {
             this.loginFlag = true
             this.loginText = '登录成功正在跳转...'
             setTimeout(() => {
-              window.location.replace('http://127.0.0.1:8080/app.html')
+              window.location.replace('/')
             }, 500)
           } else {
             this.errorText = response.body.message
@@ -196,7 +191,7 @@ export default {
         float: right;
         margin-top: 150px;
         width: 350px;
-        height: 300px;
+        height: 265px;
         background-color: @white;
         margin-right: 20px;
         border-radius: 5px;
