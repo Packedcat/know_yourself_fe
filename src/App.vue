@@ -51,7 +51,11 @@ export default {
     },
     getTags() {
       API.getTags().then((response) => {
-        this.tags = response.body.tags
+        if (response.body.tags) {
+          this.tags = response.body.tags
+        } else {
+          this.tags = []
+        }
       })
     },
     cancel() {
@@ -108,7 +112,6 @@ export default {
       tags: [],
       show: true,
       dialogTableVisible: false,
-      checkList: ['复选框 A'],
       genres: 'record',
       localTag: '',
       editMode: false
@@ -204,9 +207,13 @@ textarea {
 }
 
 #side-bar {
+  position: fixed;
+  top: 59px;
+  left: 0;
+  bottom: 0;
   width: 240px;
   min-width: 240px;
-  margin-right: 20px;
+  overflow-y: scroll;
 }
 
 .el-row {
