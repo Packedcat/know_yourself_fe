@@ -7,7 +7,7 @@
     </div>
     <el-dialog size="tiny" top="30%" title="编辑标签" v-model="dialogTableVisible">
       <div id="tags-edit">
-        <div>
+        <div class="tags-row">
           <el-tooltip class="item" effect="dark" content="取消" placement="bottom">
             <i class="material-icons tiny" v-show="editMode" @click="cancel">clear</i>
           </el-tooltip>
@@ -199,10 +199,16 @@ textarea {
 
 #tags-edit {
   width: 260px;
-  i {
-    margin: 0 10px;
-    margin-top: 3px;
-    cursor: pointer;
+  .tags-row {
+    height: 40px;
+    i {
+      margin: 5px 10px;
+      margin-bottom: -3px;
+      cursor: pointer;
+    }
+    input {
+      width: 150px;
+    }
   }
 }
 
@@ -213,7 +219,7 @@ textarea {
   bottom: 0;
   width: 240px;
   min-width: 240px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .el-row {

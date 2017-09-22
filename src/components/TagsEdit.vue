@@ -1,5 +1,5 @@
 <template>
-  <div @mouseover="hoverFlag = true" @mouseleave="hoverFlag = false">
+  <div class="tags-row" @mouseover="hoverFlag = true" @mouseleave="hoverFlag = false">
     <el-tooltip class="item" effect="dark" content="删除标签" placement="bottom">
       <i class="material-icons tiny" v-if="hoverFlag" @click="deleteTag">delete</i>
       <i class="material-icons tiny" v-else>label</i>
