@@ -53,6 +53,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       filename: config.build.login,
       template: 'login.html',
       inject: true,
+      favicon: 'favicon.ico',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -68,6 +69,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       filename: config.build.app,
       template: 'index.html',
       inject: true,
+      favicon: 'favicon.ico',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
