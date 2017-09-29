@@ -15,7 +15,7 @@ _REMOTE_BASE_DIR = '/home/static'
 
 
 def build():
-    includes = ['static', 'transwarp', '*.css', '*.map', '*.ttf', '*.woff2', '*.js', '*.html']
+    includes = ['static', 'transwarp', '*.css', '*.map', '*.ttf', '*.woff2', '*.js', '*.html', '*.ico']
     excludes = ['test', '.*', '*.pyc', '*.pyo']
     local('rm -f dist/%s' % _TAR_FILE)
     with lcd(os.path.join(os.path.abspath('.'), 'dist')):

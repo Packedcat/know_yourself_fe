@@ -120,8 +120,9 @@ export default {
 }
 </script>
 <style lang="less">
-@import url('./styles/variable.less');
-@import url('./styles/place-holder.less');
+@import url(./styles/variable.less);
+@import url(./styles/place-holder.less);
+@import url(./styles/button.css);
 body {
   margin: 0;
   padding: 0;
