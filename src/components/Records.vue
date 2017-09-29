@@ -7,6 +7,7 @@
     </transition-group>
     <loading height="650" v-else></loading>
     <place-holder v-if="records.length === 0 && loading"></place-holder>
+    <pagination :pageData="pageData" @prevPage="prevPage" @nextPage="nextPage"></pagination>
     <el-dialog v-model="imgDialog" top="5%">
       <img :src="imgUrl" style="width: 100%">
     </el-dialog>
@@ -14,6 +15,7 @@
 </template>
 <script>
 import MemoCard from './MemoCard'
+import Pagination from './Pagination'
 import API from '../services/apis'
 
 export default {
@@ -28,7 +30,8 @@ export default {
     }
   },
   components: {
-    MemoCard
+    MemoCard,
+    Pagination
   },
   methods: {
     enter(el, done) {
@@ -46,14 +49,17 @@ export default {
     change() {
       this.init()
     },
-    init() {
+    init(page = '1') {
       return new Promise((resolve) => {
-        API.getRecord(this.genres).then((response) => {
-          if (response.body.record) {
+        API.getRecord(this.genres, page).then((response) => {
+          if (response.body.record && response.body.record.length !== 0) {
             this.records = response.body.record
+          } else if (this.genres === 'record') {
+            this.records = API.getDefault()
           } else {
             this.records = []
           }
+          this.pageData = response.body.page
           setTimeout(() => {
             resolve()
           }, 1000)
@@ -68,6 +74,18 @@ export default {
             resolve()
           }, 1000)
         })
+      })
+    },
+    nextPage() {
+      this.loading = false
+      this.init((this.pageData.page_index + 1).toString()).then(() => {
+        this.loading = true
+      })
+    },
+    prevPage() {
+      this.loading = false
+      this.init((this.pageData.page_index - 1).toString()).then(() => {
+        this.loading = true
       })
     }
   },
@@ -92,6 +110,7 @@ export default {
   },
   data() {
     return {
+      pageData: undefined,
       imgDialog: false,
       imgUrl: '',
       loading: false,

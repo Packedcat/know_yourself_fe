@@ -1,5 +1,5 @@
 <template>
-  <div class="card-wrapper">
+  <div class="card-wrapper" :class="{'default-card': data.id === 'default'}">
     <input class="card-input" type="text" v-model="localTitle" @blur="modifyContent">
     <el-input v-if="data.genres === 'Text'" type="textarea" :rows="2" placeholder="请输入内容" v-model="localContent" @blur="modifyContent">
     </el-input>
@@ -250,6 +250,15 @@ export default {
     &:hover {
       color: @amber;
     }
+  }
+}
+
+.default-card {
+  input, textarea {
+    pointer-events: none;
+  }
+  .footer {
+    visibility: hidden;
   }
 }
 

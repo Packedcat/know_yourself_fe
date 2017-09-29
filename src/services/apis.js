@@ -28,10 +28,8 @@ export default {
     return defaultRecord
   },
   getRecord(genres, page = '1') {
-    let data = { page: page }
-    console.log(data)
-    const url = `/api/${genres.toLowerCase()}`
-    return Vue.http.get(url, data)
+    const url = `/api/${genres.toLowerCase()}?page=${page}`
+    return Vue.http.get(url)
   },
   updateRecord(id, title = null, content = null) {
     let data = { id: id }

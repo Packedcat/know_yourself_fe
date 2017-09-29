@@ -4,12 +4,12 @@
       <a class="brand-logo" @click="reload">
         <h3>Know Yourself</h3>
       </a>
-      <ul class="clear-fix">
+      <!-- <ul class="clear-fix">
         <li @mouseover="tabHover(index)" @mouseleave="tabReset" v-for="(tab, index) of items">
           <router-link :to="tab.location" :class="{'amber-text': curIndex === index}">{{tab.name}}</router-link>
         </li>
         <span class="nav-cursor" :style="{'left': left}"></span>
-      </ul>
+      </ul> -->
       <div class="profile" @click="dropFlag = !dropFlag">
         <span class="userName">{{user?user.name:''}}</span>
         <img src="../assets/user.png" title="profile">
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     reload() {
-      window.location.replace('/my/home/')
+      window.location.replace('/')
     },
     tabHover(index) {
       this.left = `${(index * this.tabWidth) + 20}px`
@@ -59,9 +59,9 @@ export default {
     API.getUser().then((response) => {
       this.user = response.body.user
     })
-    const pathName = this.$route.path
-    const i = this.itemIndex.findIndex(ii => pathName.indexOf(ii) !== -1)
-    this.left = `${(i * this.tabWidth) + 20}px`
+    // const pathName = this.$route.path
+    // const i = this.itemIndex.findIndex(ii => pathName.indexOf(ii) !== -1)
+    // this.left = `${(i * this.tabWidth) + 20}px`
   },
   computed: {
     userInfo() {
