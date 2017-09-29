@@ -1,9 +1,37 @@
 import Vue from 'vue'
 
+const defaultRecord = [{
+  archive: 0,
+  content: '扫描下方二维码添加好友，发送信息以添加内容',
+  created_at: 1506090428.23444,
+  genres: 'Text',
+  id: 'default',
+  is_delete: 0,
+  tags: [],
+  title: '注目',
+  trash: 0,
+  user_id: 'default'
+}, {
+  archive: 0,
+  content: '/static/picture/default.png',
+  created_at: 1506225295.03035,
+  genres: 'Picture',
+  id: 'default',
+  is_delete: 0,
+  tags: [],
+  title: '扫码添加',
+  trash: 0,
+  user_id: 'default'
+}]
 export default {
-  getRecord(genres) {
+  getDefault() {
+    return defaultRecord
+  },
+  getRecord(genres, page = '1') {
+    let data = { page: page }
+    console.log(data)
     const url = `/api/${genres.toLowerCase()}`
-    return Vue.http.get(url)
+    return Vue.http.get(url, data)
   },
   updateRecord(id, title = null, content = null) {
     let data = { id: id }
