@@ -1,10 +1,10 @@
 <template>
   <div>
     <navbar :items="navItems"></navbar>
-    <div id="main-content">
+    <main id="main-content">
       <sidebar @choose="handleChoose" :tags="tags" id="side-bar"></sidebar>
-      <records :genres="genres" :tags="tags"></records>
-    </div>
+      <records :genres="genres" :tags="tags" id="record-content"></records>
+    </main>
     <el-dialog size="tiny" top="30%" title="编辑标签" v-model="dialogTableVisible">
       <div id="tags-edit">
         <div class="tags-row">
@@ -118,6 +118,7 @@ export default {
     }
   }
 }
+
 </script>
 <style lang="less">
 @import url(./styles/variable.less);
@@ -144,7 +145,7 @@ body {
 }
 
 .el-row {
-  margin-bottom: 20px;
+  margin-bottom: 0;
   &:last-child {
     margin-bottom: 0;
   }
@@ -223,7 +224,13 @@ textarea {
   overflow-y: auto;
 }
 
-.el-row {
-  margin-bottom: 0!important;
+#record-content {
+  position: fixed;
+  padding: 0 20px;
+  top: 59px;
+  left: 240px;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
 }
 </style>

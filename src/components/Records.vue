@@ -1,5 +1,5 @@
 <template>
-  <div class="record-content">
+  <div>
     <transition-group class="record-list" name="list" tag="ul" @enter="enter" v-if="loading" appear>
       <li v-for="(r, index) in records" :key="r.id" :data-index="index + 1">
         <memo-card :data="r" :tags="tags" @change="change" @open="openImg"></memo-card>
@@ -118,14 +118,9 @@ export default {
     }
   }
 }
+
 </script>
 <style>
-.record-content {
-  margin-left: 260px;
-  flex-grow: 1;
-  /*padding: 0 20px;*/
-}
-
 .record-list {
   padding: 0;
   display: flex;
@@ -158,4 +153,5 @@ export default {
   width: 100%;
   height: 400px;
 }
+
 </style>
