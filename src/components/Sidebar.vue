@@ -1,5 +1,5 @@
 <template>
-  <el-menu @select="handleSelet">
+  <el-menu @select="handleSelet" :default-active="'record'">
     <el-menu-item-group title="全部">
       <el-menu-item index="record"><i class="material-icons tiny">mode_edit</i>记事</el-menu-item>
     </el-menu-item-group>
