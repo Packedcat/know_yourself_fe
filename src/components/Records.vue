@@ -8,9 +8,6 @@
     </transition-group>
     <loading height="650" v-else></loading>
     <place-holder v-if="records.length === 0 && loading"></place-holder>
-    <el-dialog v-model="imgDialog" top="5%">
-      <img :src="imgUrl" style="width: 100%">
-    </el-dialog>
   </div>
 </template>
 <script>
@@ -43,8 +40,7 @@ export default {
       }, delay)
     },
     openImg(url) {
-      this.imgUrl = url
-      this.imgDialog = true
+      this.$emit('openImg', url)
     },
     change() {
       this.init()
@@ -139,8 +135,6 @@ export default {
   data() {
     return {
       pageData: undefined,
-      imgDialog: false,
-      imgUrl: '',
       loading: false,
       records: [],
       winHeight: 0,

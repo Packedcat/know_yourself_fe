@@ -3,8 +3,11 @@
     <navbar :items="navItems"></navbar>
     <main id="main-content">
       <sidebar @choose="handleChoose" :tags="tags" id="side-bar"></sidebar>
-      <records :genres="genres" :tags="tags" id="record-content"></records>
+      <records @openImg="handleImg" :genres="genres" :tags="tags" id="record-content"></records>
     </main>
+    <el-dialog v-model="imgDialog" top="5%">
+      <img :src="imgUrl" style="width: 100%">
+    </el-dialog>
     <el-dialog size="tiny" top="30%" title="编辑标签" v-model="dialogTableVisible">
       <div id="tags-edit">
         <div class="tags-row">
@@ -48,6 +51,10 @@ export default {
         return
       }
       this.genres = genres
+    },
+    handleImg(url) {
+      this.imgUrl = url
+      this.imgDialog = true
     },
     getTags() {
       API.getTags().then((response) => {
@@ -112,6 +119,8 @@ export default {
       tags: [],
       show: true,
       dialogTableVisible: false,
+      imgDialog: false,
+      imgUrl: '',
       genres: 'record',
       localTag: '',
       editMode: false
