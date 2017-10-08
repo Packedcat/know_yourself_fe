@@ -1,13 +1,13 @@
 <template>
   <div>
-    <transition-group class="record-list" name="list" tag="ul" @enter="enter" v-if="loading" appear>
+    <transition-group :style="{'height':winHeight-132+'px'}" class="record-list" name="list" tag="ul" @enter="enter" v-if="loading" appear>
       <li v-for="(r, index) in records" :key="r.id" :data-index="index + 1">
         <memo-card :data="r" :tags="tags" @change="change" @open="openImg"></memo-card>
       </li>
+      <pagination :key="-1" :pageData="pageData" @prevPage="prevPage" @nextPage="nextPage"></pagination>
     </transition-group>
     <loading height="650" v-else></loading>
     <place-holder v-if="records.length === 0 && loading"></place-holder>
-    <pagination :pageData="pageData" @prevPage="prevPage" @nextPage="nextPage"></pagination>
     <el-dialog v-model="imgDialog" top="5%">
       <img :src="imgUrl" style="width: 100%">
     </el-dialog>
@@ -48,6 +48,13 @@ export default {
     },
     change() {
       this.init()
+    },
+    resize() {
+      if (window.innerHeight) {
+        this.winHeight = window.innerHeight
+      } else if (document.body && document.body.clientHeight) {
+        this.winHeight = document.body.clientHeight
+      }
     },
     init(page = '1') {
       return new Promise((resolve) => {
@@ -101,12 +108,33 @@ export default {
       proxy.then(() => {
         this.loading = true
       })
+    },
+    screenHeight(val) {
+      if (!this.timer) {
+        this.screenWidth = val
+        this.timer = true
+        let that = this
+        setTimeout(() => {
+          that.resize()
+          that.timer = false
+        }, 400)
+      }
     }
   },
   created() {
+    this.resize()
     this.init().then(() => {
       this.loading = true
     })
+  },
+  mounted() {
+    const that = this
+    window.onresize = () => {
+      return (() => {
+        window.screenHeight = window.innerHeight
+        that.screenHeight = window.innerHeight
+      })()
+    }
   },
   data() {
     return {
@@ -114,7 +142,9 @@ export default {
       imgDialog: false,
       imgUrl: '',
       loading: false,
-      records: []
+      records: [],
+      winHeight: 0,
+      screenHeight: window.innerHeight
     }
   }
 }
@@ -122,6 +152,7 @@ export default {
 </script>
 <style>
 .record-list {
+  position: relative;
   padding: 0;
   display: flex;
   flex-wrap: wrap;

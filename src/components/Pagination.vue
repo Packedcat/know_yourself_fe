@@ -42,6 +42,8 @@ export default {
 </script>
 <style lang="less">
 .pagination {
+  position: absolute;
+  bottom: -53px;
   height: 33px;
   width: 100%;
   display: flex;
