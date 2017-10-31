@@ -6,7 +6,7 @@
 
 ![screenshot](https://github.com/Packedcat/know_yourself/blob/master/screenshot/screenshot.png)
 
-### Setup
+### Build Setup
 
 ``` bash
 # install dependencies
@@ -19,3 +19,7 @@ fab build
 # deploy
 fab deploy
 ```
+
+### BackEnd
+
+[back_end_project](https://github.com/Packedcat/know_yourself)
